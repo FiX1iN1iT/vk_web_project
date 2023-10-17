@@ -1,0 +1,39 @@
+main > .container {
+    padding: 60px 15px;
+}
+
+
+.question {
+    border: 1px solid grey;
+    margin-top: 30px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+
+.question-image {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+
+.question-title {
+    font-size: 20px;
+    font-family: Helvetica;
+    font-weight: bold;
+}
+
+
+.tags {
+    max-width: 100px;
+}
+
+
+.navbar-elements {
+    word-spacing: 20px;
+}
+
+
+.pagination {
+    padding-left: 150px;
+}
