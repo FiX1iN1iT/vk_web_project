@@ -13,12 +13,10 @@
 <nav class="navbar navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">AskVk</a>
-
         <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button type="button" class="btn btn-outline-light">ASK!</button>
         </form>
-
         <div>
             <img src="../static/img/projectmage.jpeg" alt="mdo" width="40" height="40" class="rounded-circle">
             <button type="button" class="btn">Dr. Pepper</button>
@@ -28,19 +26,25 @@
     </div>
 </nav>
 
+<!--what flex-shrink is used for?-->
 <main class="flex-shrink-0">
     <div class="container">
         <div class="row">
             <div class="col-8">
-                <h1>Questions</h1>
-                <div class="row question">
+                <!--add padding between elems-->
+                <div class="container d-flex align-items-center">
+                    <h1>Questions</h1>
+                    <a href="">Hot questions</a>
+                </div>
+                <div class="row question align-items-center">
                     <div class="col-3">
                         <img src="../static/img/projectmage.jpeg" class="question-image">
-                        <div class="container">
-                            <button class="btn btn-link">Upvote</button>
-                            <button class="btn btn-link">Downvote</button>
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <button class="btn btn-link">Up</button>
                             <div>200</div>
+                            <button class="btn btn-link">Down</button>
                         </div>
+                        <a href="">answers: 3</a>
                     </div>
                     <div class="col-9">
                         <div class="question-title"><a href=""> Snapshot listener problem</a></div>
@@ -48,51 +52,53 @@
                             with a snapshot listener?
                         </div>
                         <div class="tags d-flex">
-                            <div class="badge bg-danger d-inline mx-1">Swift</div>
-                            <div class="badge bg-black d-inline mx-1">Firebase</div>
-                            <div class="badge bg-success d-inline mx-1">SwiftUI</div>
+                            <div class="badge bg-danger mx-1">Swift</div>
+                            <div class="badge bg-black mx-1">Firebase</div>
+                            <div class="badge bg-success mx-1">SwiftUI</div>
                         </div>
                     </div>
                 </div>
-                <div class="row question">
+                <div class="row question align-items-center">
                     <div class="col-3">
-                        <img src="../static/img/projectmage.jpeg" alt="" class="question-image">
-                        <div class="container">
-                            <button class="btn btn-link">Upvote</button>
-                            <button class="btn btn-link">Downvote</button>
+                        <img src="../static/img/projectmage.jpeg" class="question-image">
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <button class="btn btn-link">Up</button>
                             <div>200</div>
+                            <button class="btn btn-link">Down</button>
                         </div>
+                        <a href="">answers: 3</a>
                     </div>
                     <div class="col-9">
-                        <div class="question-title"><a href=""> Second question.</a></div>
+                        <div class="question-title"><a href="">Second question.</a></div>
                         <div class="question-text">Lorem Ipsum is simply dummy text of the printing and typesetting
                             industry.
                         </div>
                         <div class="tags d-flex">
-                            <div class="badge bg-primary d-inline mx-1">Python</div>
-                            <div class="badge bg-primary d-inline mx-1">Python</div>
-                            <div class="badge bg-primary d-inline mx-1">Python</div>
+                            <div class="badge bg-danger mx-1">Python</div>
+                            <div class="badge bg-black mx-1">Python</div>
+                            <div class="badge bg-success mx-1">Python</div>
                         </div>
                     </div>
                 </div>
-                <div class="row question">
+                <div class="row question align-items-center">
                     <div class="col-3">
-                        <img src="../static/img/projectmage.jpeg" alt="" class="question-image">
-                        <div class="container">
-                            <button class="btn btn-link">Upvote</button>
-                            <button class="btn btn-link">Downvote</button>
+                        <img src="../static/img/projectmage.jpeg" class="question-image">
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <button class="btn btn-link">Up</button>
                             <div>200</div>
+                            <button class="btn btn-link">Down</button>
                         </div>
+                        <a href="">answers: 3</a>
                     </div>
                     <div class="col-9">
-                        <div class="question-title"><a href=""> Third question.</a></div>
+                        <div class="question-title"><a href="">Third question.</a></div>
                         <div class="question-text">Lorem Ipsum is simply dummy text of the printing and typesetting
                             industry.
                         </div>
                         <div class="tags d-flex">
-                            <div class="badge bg-primary d-inline mx-1">Python</div>
-                            <div class="badge bg-primary d-inline mx-1">Python</div>
-                            <div class="badge bg-primary d-inline mx-1">Python</div>
+                            <div class="badge bg-danger mx-1">Python</div>
+                            <div class="badge bg-black mx-1">Python</div>
+                            <div class="badge bg-success mx-1">Python</div>
                         </div>
                     </div>
                 </div>
