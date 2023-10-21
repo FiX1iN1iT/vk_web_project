@@ -36,10 +36,14 @@ main > .container {
 
 
 .pagination {
-    padding-top: 20px;
+    padding: 20px;
 }
 
 
 .top-items {
     padding-left: 20px;
+}
+
+main.flex-shrink-0 {
+    margin-bottom: 70px;
 }

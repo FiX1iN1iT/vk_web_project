@@ -6,7 +6,7 @@
     <link href="../static/css/main.css" rel="stylesheet">
     <link href="../static/css/icons.css" rel="stylesheet">
     <script src="../static/js/bootstrap.js"></script>
-    <title>VKindex</title>
+    <title>VKquestion</title>
 </head>
 
 <body>
@@ -32,10 +32,11 @@
     <div class="container">
         <div class="row">
             <div class="col-9">
-                <div class="container d-flex align-items-center">
-                    <h1>Questions</h1>
-                    <div class="top-items"><a href="">Hot questions</a></div>
-                </div>
+                <!--add padding between elems-->
+                <!--        <div class="container d-flex align-items-center">-->
+                <!--          <h1>Questions</h1>-->
+                <!--          <a href="">Hot questions</a>-->
+                <!--        </div>-->
                 <div class="row question align-items-center">
                     <div class="col-3 d-flex flex-column align-items-center">
                         <img src="../static/img/projectmage.jpeg" class="question-image">
@@ -44,10 +45,9 @@
                             <div class="h5 mb-0">0</div>
                             <button class="btn"><i class="gg-chevron-down-r"></i></button>
                         </div>
-                        <div class="h6 mb-0">2 answers</div>
                     </div>
                     <div class="col-9">
-                        <div class="question-title"><a href=""> Snapshot listener problem</a></div>
+                        <div class="question-title">Snapshot listener problem</div>
                         <div class="question-text"> How to return an array of annotations from a function
                             with a snapshot listener?
                         </div>
@@ -56,22 +56,27 @@
                         <button type="button" class="btn btn-primary m-1 p-1">SwiftUI</button>
                     </div>
                 </div>
+                <hr>
                 <div class="row question align-items-center">
                     <div class="col-3 d-flex flex-column align-items-center">
                         <img src="../static/img/projectmage.jpeg" class="question-image">
                         <div class="container d-flex justify-content-center align-items-center">
                             <button class="btn"><i class="gg-chevron-up-r"></i></button>
-                            <div class="h5 mb-0">200</div>
+                            <div class="h5 mb-0">20</div>
                             <button class="btn"><i class="gg-chevron-down-r"></i></button>
                         </div>
-                        <div class="h6 mb-0">2 answers</div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" checked>
+                            <label class="form-check-label" for="flexCheckChecked1">
+                                Correct!
+                            </label>
+                        </div>
                     </div>
                     <div class="col-9">
-                        <div class="question-title"><a href="">Second question.</a></div>
+                        <div class="question-title"><a href="">First answer.</a></div>
                         <div class="question-text">Lorem Ipsum is simply dummy text of the printing and typesetting
                             industry.
                         </div>
-                        <button type="button" class="btn btn-warning m-1 p-1">Python</button>
                     </div>
                 </div>
                 <div class="row question align-items-center">
@@ -79,21 +84,24 @@
                         <img src="../static/img/projectmage.jpeg" class="question-image">
                         <div class="container d-flex justify-content-center align-items-center">
                             <button class="btn"><i class="gg-chevron-up-r"></i></button>
-                            <div class="h5 mb-0">0</div>
+                            <div class="h5 mb-0">-3</div>
                             <button class="btn"><i class="gg-chevron-down-r"></i></button>
                         </div>
-                        <div class="h6 mb-0">0 answers</div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2">
+                            <label class="form-check-label" for="flexCheckChecked2">
+                                Correct!
+                            </label>
+                        </div>
                     </div>
                     <div class="col-9">
-                        <div class="question-title"><a href="">Third question.</a></div>
+                        <div class="question-title"><a href="">Second answer.</a></div>
                         <div class="question-text">Lorem Ipsum is simply dummy text of the printing and typesetting
                             industry.
                         </div>
-                        <button type="button" class="btn btn-warning m-1 p-1">Python</button>
-                        <button type="button" class="btn btn-secondary m-1 p-1">UIKit</button>
-                        <button type="button" class="btn btn-info m-1 p-1">Git</button>
                     </div>
                 </div>
+                <hr>
                 <nav aria-label="Search results pages">
                     <ul class="pagination">
                         <li class="page-item"><a class="page-link" href="#">Previous</a></li>
@@ -103,6 +111,12 @@
                         <li class="page-item"><a class="page-link" href="#">Next</a></li>
                     </ul>
                 </nav>
+                <hr>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Your answer</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <button class="btn btn-link">Submit</button>
+                </div>
             </div>
             <div class="col-3">
                 <div class="row">
@@ -137,15 +151,15 @@
                         <tbody>
                         <tr>
                             <td>
-                    <ul class="list-group" style="margin-left: 15px; max-width: 250px">
-                        <li class="list-group-item"><a href="">Mr.Freeman</a></li>
-                        <li class="list-group-item"><a href="">LolKek</a></li>
-                        <li class="list-group-item"><a href="">fix1in1it</a></li>
-                        <li class="list-group-item"><a href="">Mr.White</a></li>
-                        <li class="list-group-item"><a href="">Mr.Black</a></li>
-                    </ul>
-                    </td>
-                    </tr>
+                                <ul class="list-group" style="margin-left: 15px; max-width: 250px">
+                                    <li class="list-group-item"><a href="">Mr.Freeman</a></li>
+                                    <li class="list-group-item"><a href="">LolKek</a></li>
+                                    <li class="list-group-item"><a href="">fix1in1it</a></li>
+                                    <li class="list-group-item"><a href="">Mr.White</a></li>
+                                    <li class="list-group-item"><a href="">Mr.Black</a></li>
+                                </ul>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
