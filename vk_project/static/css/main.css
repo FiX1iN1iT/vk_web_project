@@ -1,11 +1,11 @@
 main > .container {
-    padding: 60px 15px;
+    padding-top: 30px;
 }
 
 
 .question {
     border: 1px solid grey;
-    margin-top: 30px;
+    margin-top: 20px;
     border-radius: 10px;
     padding: 20px;
 }
@@ -14,6 +14,7 @@ main > .container {
 .question-image {
     max-width: 50px;
     max-height: 50px;
+    margin-right: 10px;
 }
 
 
@@ -35,10 +36,10 @@ main > .container {
 
 
 .pagination {
-    padding-left: 150px;
+    padding-top: 20px;
 }
 
 
 .top-items {
-    padding-right: 20px;
+    padding-left: 20px;
 }
