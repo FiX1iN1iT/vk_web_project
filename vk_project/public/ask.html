@@ -5,7 +5,7 @@
     <link href="../static/css/bootstrap.css" rel="stylesheet">
     <link href="../static/css/main.css" rel="stylesheet">
     <script src="../static/js/bootstrap.js"></script>
-    <title>VK project</title>
+    <title>VKask</title>
 </head>
 
 <body>
@@ -26,46 +26,71 @@
     </div>
 </nav>
 
-<!--what flex-shrink is used for?-->
+
 <main class="flex-shrink-0">
     <div class="container">
         <div class="row">
-            <div class="col-8">
-                <!--add padding between elems-->
+            <div class="col-9">
                 <h1>New Question</h1>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Title</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    <div>error: Wrong title</div>
+                    <input class="form-control" id="exampleFormControlTextarea1"
+                           placeholder="Snapshot listener problem">
                     <hr>
                     <label for="exampleFormControlTextarea1" class="form-label">Text</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="3"></textarea>
-                    <div>error: Wrong text</div>
+                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="3"
+                              placeholder="How to return an array of annotations from a function with a snapshot listener?"></textarea>
                     <hr>
                     <label for="exampleFormControlTextarea1" class="form-label">Tags</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea3" rows="3"></textarea>
-                    <div>error: Wrong tags</div>
+                    <input class="form-control" id="exampleFormControlTextarea3" placeholder="Swift, Firebase, SwiftUI">
+                    <div class="text-danger">error: Wrong tags</div>
                 </div>
                 <button class="btn btn-link">Submit</button>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <div class="row">
-                    <h2>Popular tags</h2>
-                    <div class="tags">
-                        <span class="badge bg-primary">Python</span>
-                        <span class="badge bg-secondary">CSS</span>
-                        <span class="badge bg-success">Voloshin</span>
-                        <span class="badge bg-danger">Django</span>
-                        <span class="badge bg-dark">Vk</span>
-                    </div>
-                    <h2>Best members</h2>
-                    <ul class="list-group" style="margin-left: 15px; max-width: 250px">
-                        <li class="list-group-item"><a href="">Mr.Freeman</a></li>
-                        <li class="list-group-item"><a href="">LolKek</a></li>
-                        <li class="list-group-item"><a href="">fix1in1it</a></li>
-                        <li class="list-group-item"><a href="">Mr.White</a></li>
-                        <li class="list-group-item"><a href="">Mr.Black</a></li>
-                    </ul>
+                    <table class="table table-borderless">
+                        <thead>
+                        <tr>
+                            <th>POPULAR TAGS</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-outline-primary m-1 p-1">Swift</button>
+                                <button type="button" class="btn btn-success m-1 p-1">Firebase</button>
+                                <button type="button" class="btn btn-danger m-1 p-1">CoreData</button>
+                                <button type="button" class="btn btn-warning m-1 p-1">Python</button>
+                                <button type="button" class="btn btn-secondary m-1 p-1">UIKit</button>
+                                <button type="button" class="btn btn-info m-1 p-1">Git</button>
+                                <button type="button" class="btn btn-primary m-1 p-1">SwiftUI</button>
+                                <button type="button" class="btn btn-light m-1 p-1">HTML</button>
+                                <button type="button" class="btn btn-dark m-1 p-1">CSS</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-borderless">
+                        <thead>
+                        <tr>
+                            <th>BEST MEMBERS</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <ul class="list-group" style="margin-left: 15px; max-width: 250px">
+                                    <li class="list-group-item"><a href="">Mr.Freeman</a></li>
+                                    <li class="list-group-item"><a href="">LolKek</a></li>
+                                    <li class="list-group-item"><a href="">fix1in1it</a></li>
+                                    <li class="list-group-item"><a href="">Mr.White</a></li>
+                                    <li class="list-group-item"><a href="">Mr.Black</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
