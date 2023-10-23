@@ -47,3 +47,8 @@ main > .container {
 main.flex-shrink-0 {
     margin-bottom: 70px;
 }
+
+
+.bottom-element {
+    margin-top: 20px;
+}
