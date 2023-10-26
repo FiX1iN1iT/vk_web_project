@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{% static '/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static '/css/main.css' %}" rel="stylesheet">
+    <link href="{% static '/css/icons.css' %}" rel="stylesheet">
+    <title>VKindex</title>
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">AskVk</a>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button type="button" class="btn btn-outline-light">ASK!</button>
+        </form>
+        <div>
+            <img src="../static/img/projectmage.jpeg" alt="mdo" width="40" height="40" class="rounded-circle">
+            <button type="button" class="btn">Dr. Pepper</button>
+            <button type="button" class="btn">settings</button>
+            <button type="button" class="btn">log out</button>
+        </div>
+    </div>
+</nav>
+
+<!--what flex-shrink is used for?-->
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-9">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+            <div class="col-3">
+                <table class="table table-borderless">
+                    <thead>
+                    <tr>
+                        <th>POPULAR TAGS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <button type="button" class="btn btn-outline-primary m-1 p-1">Swift</button>
+                            <button type="button" class="btn btn-success m-1 p-1">Firebase</button>
+                            <button type="button" class="btn btn-danger m-1 p-1">UIKit</button>
+                            <button type="button" class="btn btn-warning m-1 p-1">CoreData</button>
+                            <button type="button" class="btn btn-secondary m-1 p-1">HTML</button>
+                            <button type="button" class="btn btn-info m-1 p-1">CSS</button>
+                            <button type="button" class="btn btn-primary m-1 p-1">SwiftUI</button>
+                            <button type="button" class="btn btn-light m-1 p-1">Git</button>
+                            <button type="button" class="btn btn-dark m-1 p-1">Python</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table table-borderless">
+                    <thead>
+                    <tr>
+                        <th>BEST MEMBERS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <ul class="list-group" style="margin-left: 15px; max-width: 250px">
+                                <li class="list-group-item"><a href="">Mr.Freeman</a></li>
+                                <li class="list-group-item"><a href="">LolKek</a></li>
+                                <li class="list-group-item"><a href="">fix1in1it</a></li>
+                                <li class="list-group-item"><a href="">Mr.White</a></li>
+                                <li class="list-group-item"><a href="">Mr.Black</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer py-3 bg-primary fixed-bottom">
+    <div class="container">
+        <span class="text-muted">2023 Alexander Zobnin</span>
+    </div>
+</footer>
+
+<script src="{% static '/js/bootstrap.js' %}"></script>
+</body>
+</html>
