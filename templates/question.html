@@ -33,25 +33,7 @@
         <div class="row">
             <div class="col-9">
                 <h2>Question</h2>
-                <div class="row question align-items-center">
-                    <div class="col-3 d-flex flex-column align-items-center">
-                        <img src="../static/img/projectmage.jpeg" class="question-image">
-                        <div class="container d-flex justify-content-center align-items-center">
-                            <button class="btn"><i class="gg-chevron-down-r"></i></button>
-                            <div class="h5 mb-0">0</div>
-                            <button class="btn"><i class="gg-chevron-up-r"></i></button>
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="question-title">Snapshot listener problem</div>
-                        <div class="question-text"> How to return an array of annotations from a function
-                            with a snapshot listener?
-                        </div>
-                        <button type="button" class="btn btn-outline-primary m-1 p-1">Swift</button>
-                        <button type="button" class="btn btn-success m-1 p-1">Firebase</button>
-                        <button type="button" class="btn btn-primary m-1 p-1">SwiftUI</button>
-                    </div>
-                </div>
+                {% include 'components/question-item.html' %}
                 <hr>
                 <h4>2 Answers</h4>
                 <div class="row question align-items-center">
