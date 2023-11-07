@@ -12,21 +12,9 @@
 
 <body>
 
-<nav class="navbar navbar-dark bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'index' %}">AskVk</a>
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button type="button" class="btn btn-outline-light">ASK!</button>
-        </form>
-        <div>
-            <img src="../static/img/projectmage.jpeg" alt="mdo" width="40" height="40" class="rounded-circle">
-            <button type="button" class="btn">Dr. Pepper</button>
-            <button type="button" class="btn">settings</button>
-            <button type="button" class="btn">log out</button>
-        </div>
-    </div>
-</nav>
+{% block navbar %}
+
+{% endblock %}
 
 <!--what flex-shrink is used for?-->
 <main class="flex-shrink-0">
@@ -47,15 +35,23 @@
                     <tbody>
                     <tr>
                         <td>
-                            <button type="button" class="btn btn-outline-primary m-1 p-1">Swift</button>
-                            <button type="button" class="btn btn-success m-1 p-1">Firebase</button>
-                            <button type="button" class="btn btn-danger m-1 p-1">UIKit</button>
-                            <button type="button" class="btn btn-warning m-1 p-1">CoreData</button>
-                            <button type="button" class="btn btn-secondary m-1 p-1">HTML</button>
-                            <button type="button" class="btn btn-info m-1 p-1">CSS</button>
-                            <button type="button" class="btn btn-primary m-1 p-1">SwiftUI</button>
-                            <button type="button" class="btn btn-light m-1 p-1">Git</button>
-                            <button type="button" class="btn btn-dark m-1 p-1">Python</button>
+<!--                            {% block tags %}-->
+
+<!--                            {% endblock %}-->
+                            <a class="btn btn-outline-primary m-1 p-1" href="{% url 'tag' tag_name='swift' %}">Swift</a>
+                            <a class="btn btn-success m-1 p-1" href="{% url 'tag' tag_name='firebase' %}">Firebase</a>
+                            <a class="btn btn-danger m-1 p-1" href="{% url 'tag' tag_name='uikit' %}">UIKit</a>
+                            <a class="btn btn-warning m-1 p-1" href="{% url 'tag' tag_name='coredata' %}">CoreData</a>
+                            <a class="btn btn-secondary m-1 p-1" href="{% url 'tag' tag_name='html' %}">HTML</a>
+                            <a class="btn btn-info m-1 p-1" href="{% url 'tag' tag_name='css' %}">CSS</a>
+                            <a class="btn btn-primary m-1 p-1" href="{% url 'tag' tag_name='swiftui' %}">SwiftUI</a>
+                            <a class="btn btn-light m-1 p-1" href="{% url 'tag' tag_name='git' %}">Git</a>
+                            <a class="btn btn-dark m-1 p-1" href="{% url 'tag' tag_name='python' %}">Python</a>
+<!--                            {% for tag in tags %}-->
+
+<!--                            {% include 'components/tag-item.html' %}-->
+
+<!--                            {% endfor %}-->
                         </td>
                     </tr>
                     </tbody>

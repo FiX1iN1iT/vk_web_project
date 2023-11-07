@@ -2,7 +2,7 @@
 
 <div class="row question align-items-center">
     <div class="col-3 d-flex flex-column align-items-center">
-        <img src="../static/img/projectmage.jpeg" class="question-image">
+        <img src="{% static '/img/projectmage.jpeg' %}" class="question-image">
         <div class="container d-flex justify-content-center align-items-center">
             <button class="btn"><i class="gg-chevron-down-r"></i></button>
             <div class="h5 mb-0">0</div>
@@ -12,7 +12,7 @@
     </div>
     <div class="col-9">
         <div class="question-title">
-            <a href="{% url 'question' question.id %}">{{ question.title }}</a>
+            <a href="{% url 'question' question_id=question.id %}">{{ question.title }}</a>
         </div>
         <div class="question-text">{{ question.content }}</div>
         <button type="button" class="btn btn-outline-primary m-1 p-1">Swift</button>

@@ -1,155 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link href="../static/css/bootstrap.css" rel="stylesheet">
-    <link href="../static/css/main.css" rel="stylesheet">
-    <link href="../static/css/icons.css" rel="stylesheet">
-    <script src="../static/js/bootstrap.js"></script>
-    <title>VKquestion</title>
-</head>
+{% extends 'layouts/base.html' %}
+{% load static %}
 
-<body>
+{% block navbar %}
 
-<nav class="navbar navbar-dark bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">AskVk</a>
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button type="button" class="btn btn-outline-light">ASK!</button>
-        </form>
-        <div>
-            <img src="../static/img/projectmage.jpeg" alt="mdo" width="40" height="40" class="rounded-circle">
-            <button type="button" class="btn">Dr. Pepper</button>
-            <button type="button" class="btn">settings</button>
-            <button type="button" class="btn">log out</button>
-        </div>
-    </div>
-</nav>
+{% include 'components/regged-navbar.html' %}
 
+{% endblock %}
 
-<main class="flex-shrink-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-9">
-                <h2>Question</h2>
-                {% include 'components/question-item.html' %}
-                <hr>
-                <h4>2 Answers</h4>
-                <div class="row question align-items-center">
-                    <div class="col-3 d-flex flex-column align-items-center">
-                        <img src="../static/img/projectmage.jpeg" class="question-image">
-                        <div class="container d-flex justify-content-center align-items-center">
-                            <button class="btn"><i class="gg-chevron-down-r"></i></button>
-                            <div class="h5 mb-0">20</div>
-                            <button class="btn"><i class="gg-chevron-up-r"></i></button>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" checked>
-                            <label class="form-check-label" for="flexCheckChecked1">
-                                Correct!
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="question-title"><a href="">First answer.</a></div>
-                        <div class="question-text">Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry.
-                        </div>
-                    </div>
-                </div>
-                <div class="row question align-items-center">
-                    <div class="col-3 d-flex flex-column align-items-center">
-                        <img src="../static/img/projectmage.jpeg" class="question-image">
-                        <div class="container d-flex justify-content-center align-items-center">
-                            <button class="btn"><i class="gg-chevron-down-r"></i></button>
-                            <div class="h5 mb-0">-3</div>
-                            <button class="btn"><i class="gg-chevron-up-r"></i></button>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2">
-                            <label class="form-check-label" for="flexCheckChecked2">
-                                Correct!
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="question-title"><a href="">Second answer.</a></div>
-                        <div class="question-text">Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry.
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <nav aria-label="Search results pages">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">...</a></li>
-                        <li class="page-item"><a class="page-link" href="#">100</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-                </nav>
-                <hr>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Your answer</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    <button type="button" class="btn btn-primary bottom-element">Answer!</button>
-                </div>
-            </div>
-            <div class="col-3">
-                <table class="table table-borderless">
-                    <thead>
-                    <tr>
-                        <th>POPULAR TAGS</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <button type="button" class="btn btn-outline-primary m-1 p-1">Swift</button>
-                            <button type="button" class="btn btn-success m-1 p-1">Firebase</button>
-                            <button type="button" class="btn btn-danger m-1 p-1">UIKit</button>
-                            <button type="button" class="btn btn-warning m-1 p-1">CoreData</button>
-                            <button type="button" class="btn btn-secondary m-1 p-1">HTML</button>
-                            <button type="button" class="btn btn-info m-1 p-1">CSS</button>
-                            <button type="button" class="btn btn-primary m-1 p-1">SwiftUI</button>
-                            <button type="button" class="btn btn-light m-1 p-1">Git</button>
-                            <button type="button" class="btn btn-dark m-1 p-1">Python</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table table-borderless">
-                    <thead>
-                    <tr>
-                        <th>BEST MEMBERS</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <ul class="list-group" style="margin-left: 15px; max-width: 250px">
-                                <li class="list-group-item"><a href="">Mr.Freeman</a></li>
-                                <li class="list-group-item"><a href="">LolKek</a></li>
-                                <li class="list-group-item"><a href="">fix1in1it</a></li>
-                                <li class="list-group-item"><a href="">Mr.White</a></li>
-                                <li class="list-group-item"><a href="">Mr.Black</a></li>
-                            </ul>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</main>
+{% block content %}
 
-<footer class="footer py-3 bg-primary fixed-bottom">
-    <div class="container">
-        <span class="text-muted">2023 Alexander Zobnin</span>
-    </div>
-</footer>
+<h2>Question</h2>
+{% include 'components/question-item.html' %}
+<hr>
+<h4>2 Answers</h4>
 
-</body>
-</html>
+{% for answer in page_obj %}
+
+{% include 'components/answer-item.html' %}
+
+{% endfor %}
+
+<hr>
+
+{% include 'components/pagination.html' %}
+
+<hr>
+<div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Your answer</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <button type="button" class="btn btn-primary bottom-element">Answer!</button>
+</div>
+
+{% endblock %}
