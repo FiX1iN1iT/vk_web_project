@@ -1,12 +1,8 @@
 from django.shortcuts import render
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
 
-from app.models import Profile
-from app.models import Question
-from app.models import Answer
-from app.models import Tag
-from app.models import Vote
+from app.models import Question, Answer, Profile, Tag, Vote
 
 QUESTION = [
     {
@@ -35,7 +31,12 @@ TAG = [
 def paginate(objects_list, request, per_page=5):
     paginator = Paginator(objects_list, per_page)
     page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    try:
+        page_obj = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.get_page(1)
+    except EmptyPage:
+        raise Http404("Page not found")
     return page_obj
 
 
