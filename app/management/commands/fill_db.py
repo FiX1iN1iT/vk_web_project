@@ -20,19 +20,22 @@ class Command(BaseCommand):
         answers_amount = num * 100
 
         # Create fake users
-        users = [
-            User(
-                username=fake.user_name(),
-                email=fake.email(),
-                password=fake.password()
-            )
-            for _ in range(num)
-        ]
+        users = []
+        for _ in range(num):
+            while True:
+                username = fake.user_name()
+                if not User.objects.filter(username=username).exists():
+                    break
+            email = fake.email()
+            password = fake.password()
+
+            users.append(User(username=username, email=email, password=password))
+
         User.objects.bulk_create(users)
 
         # Create fake user profiles
         profiles = [
-            Profile(user=User(username=fake.user_name(), email=fake.email(), password=fake.password()))
+            Profile(user=users[fake.random_int(min=0, max=num - 1)])
             for _ in range(num)
         ]
         Profile.objects.bulk_create(profiles)
@@ -50,7 +53,7 @@ class Command(BaseCommand):
         # Create fake questions
         questions = [
             Question(
-                user=profiles[fake.random_int(min=0, max=num - 1)].user,
+                user=users[fake.random_int(min=0, max=num - 1)],
                 title=fake.sentence(nb_words=3),
                 content=fake.paragraph(),
                 tags=tags.order_by('?')[:fake.random_int(min=1, max=6)],
@@ -62,7 +65,7 @@ class Command(BaseCommand):
         # Create fake answers
         answers = []
         for _ in range(answers_amount):
-            user = profiles[fake.random_int(min=0, max=num - 1)].user
+            user = users[fake.random_int(min=0, max=num - 1)]
             question = Question.objects.order_by('?').first()
             content = fake.paragraph()
             created_at = fake.date_between(
@@ -71,7 +74,7 @@ class Command(BaseCommand):
             )
             status = fake.random_element(elements=('c', 'i'))
 
-            answers.append(Answer(user, question, content, created_at, status))
+            answers.append(Answer(user=user, question=question, content=content, created_at=created_at, status=status))
 
         Answer.objects.bulk_create(answers)
 
@@ -79,12 +82,12 @@ class Command(BaseCommand):
         votes = []
         for _ in range(votes_amount):
             flag = fake.boolean()
-            user = profiles[fake.random_int(min=0, max=num - 1)].user
+            user = users[fake.random_int(min=0, max=num - 1)]
             question = None if flag else Question.objects.order_by('?').first()
             answer = None if not flag else Answer.objects.order_by('?').first()
             value = fake.random_element(elements=(-1, 1))
 
-            votes.append(Vote(user, question, answer, value))
+            votes.append(Vote(user=user, question=question, answer=answer, value=value))
 
         Vote.objects.bulk_create(votes)
 
