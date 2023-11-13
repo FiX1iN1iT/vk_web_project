@@ -19,6 +19,17 @@ class Command(BaseCommand):
         questions_amount = num * 10
         answers_amount = num * 100
 
+        # Create fake users
+        users = [
+            User(
+                username=fake.user_name(),
+                email=fake.email(),
+                password=fake.password()
+            )
+            for _ in range(num)
+        ]
+        User.objects.bulk_create(users)
+
         # Create fake user profiles
         profiles = [
             Profile(user=User(username=fake.user_name(), email=fake.email(), password=fake.password()))
