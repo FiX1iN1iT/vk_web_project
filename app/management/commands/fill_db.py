@@ -21,7 +21,7 @@ class Command(BaseCommand):
 
         # Create fake user profiles
         profiles = [
-            Profile(user=User(username=fake.user_name(), email=fake.email()))
+            Profile(user=User(username=fake.user_name(), email=fake.email(), password=fake.password()))
             for _ in range(num)
         ]
         Profile.objects.bulk_create(profiles)
@@ -36,25 +36,13 @@ class Command(BaseCommand):
         profiles = Profile.objects.all()
         tags = Tag.objects.all()
 
-        # Create fake votes
-        votes = []
-        for _ in range(votes_amount):
-            flag = fake.boolean()
-            user = profiles[fake.random_int(min=0, max=num - 1)].user
-            question = None if flag else Question.objects.order_by('?').first()
-            answer = None if not flag else Answer.objects.order_by('?').first()
-            value = fake.random_element(elements=(-1, 1))
-
-            votes.append(Vote(user, question, answer, value))
-
-        Vote.objects.bulk_create(votes)
-
         # Create fake questions
         questions = [
             Question(
                 user=profiles[fake.random_int(min=0, max=num - 1)].user,
                 title=fake.sentence(nb_words=3),
                 content=fake.paragraph(),
+                tags=tags.order_by('?')[:fake.random_int(min=1, max=6)],
                 created_at=fake.date_between(start_date='-1y', end_date='today')
             ) for _ in range(questions_amount)
         ]
@@ -76,6 +64,17 @@ class Command(BaseCommand):
 
         Answer.objects.bulk_create(answers)
 
-        # Add tags to questions
-        for question in Question.objects.all():
-            question.tags.set(tags.order_by('?')[:fake.random_int(min=1, max=6)])
+        # Create fake votes
+        votes = []
+        for _ in range(votes_amount):
+            flag = fake.boolean()
+            user = profiles[fake.random_int(min=0, max=num - 1)].user
+            question = None if flag else Question.objects.order_by('?').first()
+            answer = None if not flag else Answer.objects.order_by('?').first()
+            value = fake.random_element(elements=(-1, 1))
+
+            votes.append(Vote(user, question, answer, value))
+
+        Vote.objects.bulk_create(votes)
+
+        self.stdout.write(self.style.SUCCESS(f"Successfully populated the database with fake data with ratio = {num}."))
