@@ -19,6 +19,8 @@ class Command(BaseCommand):
         questions_amount = num * 10
         answers_amount = num * 100
 
+        self.stdout.write(self.style.SUCCESS('Parsing - DONE'))
+
         # Create fake users
         users = []
         for _ in range(num):
@@ -32,18 +34,29 @@ class Command(BaseCommand):
 
             users.append(User(username=username, email=email, password=password))
 
+        self.stdout.write(self.style.SUCCESS('users - DONE'))
+
         User.objects.bulk_create(users)
+
+        self.stdout.write(self.style.SUCCESS('User objects - DONE'))
+
+        users = User.objects.all()
 
         # Create fake user profiles
         profiles = [
             Profile(user=users[i])
             for i in range(num)
         ]
+
+        self.stdout.write(self.style.SUCCESS('profiles - DONE'))
+
         Profile.objects.bulk_create(profiles)
+
+        self.stdout.write(self.style.SUCCESS('Profile objects - DONE'))
 
         # Create fake tags
         tags = []
-        for _ in range(num):
+        for i in range(num):
             while True:
                 name = fake.word()
                 if not Tag.objects.filter(name=name).exists() and not any(
@@ -51,8 +64,13 @@ class Command(BaseCommand):
                     break
 
             tags.append(Tag(name=name))
+            self.stdout.write(self.style.SUCCESS(i))
+
+        self.stdout.write(self.style.SUCCESS('tags - DONE'))
 
         Tag.objects.bulk_create(tags)
+
+        self.stdout.write(self.style.SUCCESS('Tag objects - DONE'))
 
         tags = Tag.objects.all()
 
@@ -66,7 +84,12 @@ class Command(BaseCommand):
                 created_at=fake.date_between(start_date='-1y', end_date='today')
             ) for _ in range(questions_amount)
         ]
+
+        self.stdout.write(self.style.SUCCESS('questions - DONE'))
+
         Question.objects.bulk_create(questions)
+
+        self.stdout.write(self.style.SUCCESS('Question objects - DONE'))
 
         # Create fake answers
         answers = []
@@ -82,7 +105,11 @@ class Command(BaseCommand):
 
             answers.append(Answer(user=user, question=question, content=content, created_at=created_at, status=status))
 
+        self.stdout.write(self.style.SUCCESS('answers - DONE'))
+
         Answer.objects.bulk_create(answers)
+
+        self.stdout.write(self.style.SUCCESS('Answer objects - DONE'))
 
         # Create fake votes
         votes = []
@@ -95,6 +122,10 @@ class Command(BaseCommand):
 
             votes.append(Vote(user=user, question=question, answer=answer, value=value))
 
+        self.stdout.write(self.style.SUCCESS('votes - DONE'))
+
         Vote.objects.bulk_create(votes)
+
+        self.stdout.write(self.style.SUCCESS('Vote objects - DONE'))
 
         self.stdout.write(self.style.SUCCESS(f"Successfully populated the database with fake data with ratio = {num}."))
