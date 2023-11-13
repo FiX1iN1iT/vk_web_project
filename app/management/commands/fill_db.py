@@ -42,13 +42,18 @@ class Command(BaseCommand):
         Profile.objects.bulk_create(profiles)
 
         # Create fake tags
-        tags = [
-            Tag(name=fake.word())
-            for _ in range(num)
-        ]
+        tags = []
+        for _ in range(num):
+            while True:
+                name = fake.word()
+                if not Tag.objects.filter(name=name).exists() and not any(
+                        tag.name == name for tag in tags):
+                    break
+
+            tags.append(Tag(name=name))
+
         Tag.objects.bulk_create(tags)
 
-        profiles = Profile.objects.all()
         tags = Tag.objects.all()
 
         # Create fake questions
