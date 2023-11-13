@@ -36,8 +36,8 @@ class Command(BaseCommand):
 
         # Create fake user profiles
         profiles = [
-            Profile(user=users[fake.random_int(min=0, max=num - 1)])
-            for _ in range(num)
+            Profile(user=users[i])
+            for i in range(num)
         ]
         Profile.objects.bulk_create(profiles)
 
