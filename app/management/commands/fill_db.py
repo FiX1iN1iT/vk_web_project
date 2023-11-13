@@ -24,7 +24,8 @@ class Command(BaseCommand):
         for _ in range(num):
             while True:
                 username = fake.user_name()
-                if not User.objects.filter(username=username).exists():
+                if not User.objects.filter(username=username).exists() and not any(
+                        user.username == username for user in users):
                     break
             email = fake.email()
             password = fake.password()
@@ -54,7 +55,7 @@ class Command(BaseCommand):
         questions = [
             Question(
                 user=users[fake.random_int(min=0, max=num - 1)],
-                title=fake.sentence(nb_words=3),
+                title=fake.sentence(nb_words=6),
                 content=fake.paragraph(),
                 tags=tags.order_by('?')[:fake.random_int(min=1, max=6)],
                 created_at=fake.date_between(start_date='-1y', end_date='today')
