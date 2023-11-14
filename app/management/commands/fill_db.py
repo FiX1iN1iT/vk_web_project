@@ -1,6 +1,7 @@
 from django.core.management import BaseCommand
 from faker import Faker
 from django.contrib.auth.models import User
+import random
 
 from app.models import Question, Answer, Profile, Tag, Vote
 
@@ -15,16 +16,16 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         num = kwargs['num']
-        votes_amount = num * 200
+        # votes_amount = num * 200
         questions_amount = num * 10
-        answers_amount = num * 100
+        # answers_amount = num * 100
 
         self.stdout.write(self.style.SUCCESS('Parsing - DONE'))
 
         # Create fake tags
         tags = []
         tag_names = set()
-        for i in range(num):
+        for _ in range(num):
             while True:
                 name = fake.word() + str(fake.random_int(min=0, max=num - 1))
                 if name not in tag_names:
@@ -32,7 +33,6 @@ class Command(BaseCommand):
 
             tag_names.add(name)
             tags.append(Tag(name=name))
-            self.stdout.write(self.style.ERROR(f'{i} tags - DONE'))
 
         self.stdout.write(self.style.SUCCESS('tags - DONE'))
 
@@ -43,7 +43,7 @@ class Command(BaseCommand):
         # Create fake users
         users = []
         user_usernames = set()
-        for i in range(num):
+        for _ in range(num):
             while True:
                 username = fake.user_name()
                 if username not in user_usernames:
@@ -53,7 +53,6 @@ class Command(BaseCommand):
 
             user_usernames.add(username)
             users.append(User(username=username, email=email, password=password))
-            self.stdout.write(self.style.ERROR(f'{i} users - DONE'))
 
         self.stdout.write(self.style.SUCCESS('users - DONE'))
 
@@ -75,81 +74,82 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS('Profile objects - DONE'))
 
-        # Create fake questions
-        questions = [
-            Question(
-                user=users[fake.random_int(min=0, max=num - 1)],
-                title=fake.sentence(nb_words=6),
-                content=fake.paragraph(),
-                created_at=fake.date_between(start_date='-1y', end_date='today')
-            ) for _ in range(questions_amount)
-        ]
+        # Create fake questions, votes and answers for them
+        questions = []
+        votes = []
+        answers = []
+        for i in range(questions_amount):
+            user = users[fake.random_int(min=0, max=num - 1)]
+            title = fake.sentence(nb_words=6)
+            content = fake.paragraph()
+            created_at = fake.date_between(start_date='-1y', end_date='today')
+            total_votes = 10
 
-        self.stdout.write(self.style.SUCCESS('questions - DONE'))
+            question = Question(user=user, title=title, content=content, created_at=created_at, total_votes=total_votes)
+
+            user_usernames = set()
+            for _ in range(15):
+                while True:
+                    user = users[fake.random_int(min=0, max=num - 1)]
+                    username = user.username
+                    if username not in user_usernames:
+                        break
+                user_usernames.add(username)
+                votes.append(Vote(user=user, question=question, answer=None, value=1))
+
+            for _ in range(5):
+                while True:
+                    user = users[fake.random_int(min=0, max=num - 1)]
+                    username = user.username
+                    if username not in user_usernames:
+                        break
+                user_usernames.add(username)
+                votes.append(Vote(user=user, question=question, answer=None, value=-1))
+
+            user_usernames_for_answers = set()
+            for _ in range(10):
+                while True:
+                    user = users[fake.random_int(min=0, max=num - 1)]
+                    username = user.username
+                    if username not in user_usernames_for_answers:
+                        break
+                user_usernames_for_answers.add(username)
+
+                content = fake.paragraph()
+                created_at = fake.date_between(start_date=question.created_at, end_date='today')
+                status = fake.random_element(elements=('c', 'i'))
+                answers.append(
+                    Answer(user=user, question=question, content=content, created_at=created_at, status=status))
+
+            questions.append(question)
+
+            self.stdout.write(self.style.ERROR(f'{i} questions - DONE'))
+
+        self.stdout.write(self.style.SUCCESS('questions, votes, answers - DONE'))
 
         Question.objects.bulk_create(questions)
 
         self.stdout.write(self.style.SUCCESS('Question objects - DONE'))
 
-        questions = Question.objects.all()
+        Vote.objects.bulk_create(votes)
 
-        # Create fake answers
-        answers = []
-        for i in range(answers_amount):
-            user = users[fake.random_int(min=0, max=num - 1)]
-            question = questions[fake.random_int(min=0, max=questions_amount - 1)]
-            content = fake.paragraph()
-            created_at = fake.date_between(
-                start_date=question.created_at,
-                end_date='today'
-            )
-            status = fake.random_element(elements=('c', 'i'))
-
-            answers.append(Answer(user=user, question=question, content=content, created_at=created_at, status=status))
-            self.stdout.write(self.style.ERROR(f'{i} answers - DONE'))
-
-        self.stdout.write(self.style.SUCCESS('answers - DONE'))
+        self.stdout.write(self.style.SUCCESS('Vote objects - DONE'))
 
         Answer.objects.bulk_create(answers)
 
         self.stdout.write(self.style.SUCCESS('Answer objects - DONE'))
 
-        answers = Answer.objects.all()
+        questions = Question.objects.all()
 
-        # Create fake votes
-        votes = []
-        for i in range(votes_amount):
-            flag = fake.boolean()
-            user = users[fake.random_int(min=0, max=num - 1)]
-            value = fake.random_element(elements=(-1, 1))
-            if flag:
-                question = None
-                answer = answers[fake.random_int(min=0, max=answers_amount - 1)]
-                answer.total_votes += value
-                answer.save()
-            else:
-                answer = None
-                question = questions[fake.random_int(min=0, max=answers_amount - 1)]
-                question.total_votes += value
-                question.save()
+        tags = list(Tag.objects.all())
 
-            votes.append(Vote(user=user, question=question, answer=answer, value=value))
-            self.stdout.write(self.style.ERROR(f'{i} votes - DONE'))
-
-        self.stdout.write(self.style.SUCCESS('votes - DONE'))
-
-        Vote.objects.bulk_create(votes)
-
-        self.stdout.write(self.style.SUCCESS('Vote objects - DONE'))
-
-        # Tags
-        tags = Tag.objects.all()
-
-        self.stdout.write(self.style.SUCCESS('Getting Tag objects - DONE'))
+        self.stdout.write(self.style.SUCCESS('Getting Question and Tag objects - DONE'))
 
         # Add tags to questions
         for i in range(questions_amount):
-            questions[i].tags.set(tags.order_by('?')[:fake.random_int(min=1, max=6)])
+            amount_of_tags_to_set = fake.random_int(min=1, max=6)
+            random_tags = random.sample(tags, amount_of_tags_to_set)
+            questions[i].tags.set(random_tags)
             self.stdout.write(self.style.ERROR(f'{i} tags set - DONE'))
 
         self.stdout.write(self.style.SUCCESS('Tags set - DONE'))
