@@ -38,11 +38,12 @@ class Vote(models.Model):
 
 
 class Question(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=256)
     content = models.TextField()
     tags = models.ManyToManyField('Tag', related_name='questions')
     created_at = models.DateField(default=date(2003, 12, 1))
+    total_votes = models.IntegerField(default=0)
 
     objects = QuestionManager()
 
@@ -51,10 +52,11 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey('Question', on_delete=models.CASCADE, related_name='answers')
     content = models.TextField()
     created_at = models.DateField(default=date(2003, 12, 1))
+    total_votes = models.IntegerField(default=0)
 
     STATUS_CHOICES = [
         ('c', 'correct'),
