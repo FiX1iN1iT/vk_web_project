@@ -12,7 +12,7 @@
 <h2>Question</h2>
 {% include 'components/question-item.html' %}
 <hr>
-<h4>2 Answers</h4>
+<h4>{{ question.answers.count }} Answers</h4>
 
 {% for answer in page_obj %}
 

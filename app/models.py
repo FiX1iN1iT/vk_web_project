@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import date
+from datetime import date, timedelta
 
 
 class QuestionManager(models.Manager):
@@ -8,10 +8,14 @@ class QuestionManager(models.Manager):
         return self.filter(tags__name=tag_name)
 
     def get_hot_questions(self):
-        return self.filter(created_at=date.today())
+        today = date.today()
+        first_day = date(today.year, today.month, 1)
+        last_day = date(today.year, today.month + 1, 1) - timedelta(days=1)
 
-    def get_top_questions(self):
-        return self.order_by('-total_votes')
+        return self.filter(created_at__range=[first_day, last_day])
+
+    def get_top_questions(self, count=10):
+        return self.order_by('-total_votes')[:count]
 
 
 class Profile(models.Model):

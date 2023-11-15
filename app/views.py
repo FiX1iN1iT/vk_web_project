@@ -43,7 +43,7 @@ def paginate(objects_list, request, per_page=5):
 # Create your views here.
 def index(request):
     context = {
-        'page_obj': paginate(QUESTION, request),
+        'page_obj': paginate(Question.objects.all(), request),
     }
     return render(request, 'index.html', context)
 
@@ -62,9 +62,16 @@ def signup(request):
 
 def hot(request):
     context = {
-        'page_obj': paginate(QUESTION, request),
+        'page_obj': paginate(Question.objects.get_hot_questions(), request),
     }
     return render(request, 'hot.html', context)
+
+
+def top(request):
+    context = {
+        'page_obj': paginate(Question.objects.get_top_questions(), request, 10),
+    }
+    return render(request, 'top.html', context)
 
 
 def tag(request, tag_name):
@@ -77,10 +84,11 @@ def tag(request, tag_name):
 
 
 def question(request, question_id):
-    if question_id >= len(QUESTION):
+    if question_id > len(Question.objects.all()):
         raise Http404("Question does not exist")
+    my_question = Question.objects.all()[question_id - 1]
     context = {
-        'question': QUESTION[question_id],
-        'page_obj': paginate(ANSWER, request),
+        'question': my_question,
+        'page_obj': paginate(my_question.answers.all(), request),
     }
     return render(request, 'question.html', context)
