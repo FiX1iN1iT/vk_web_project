@@ -16,9 +16,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         num = kwargs['num']
-        # votes_amount = num * 200
         questions_amount = num * 10
-        # answers_amount = num * 100
 
         self.stdout.write(self.style.SUCCESS('Parsing - DONE'))
 
