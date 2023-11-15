@@ -23,6 +23,10 @@ media
 # C extensions
 *.so
 
+# My
+*.sql
+backup/
+
 # Distribution / packaging
 .Python
 build/
