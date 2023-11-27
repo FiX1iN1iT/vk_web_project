@@ -2,30 +2,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
 
-from app.models import Question, Answer, Profile, Tag, Vote
-
-QUESTION = [
-    {
-        'id': i,
-        'title': f'Question {i}',
-        'content': f'Long lorem ipsum {i}'
-    } for i in range(40)
-]
-
-ANSWER = [
-    {
-        'id': i,
-        'title': f'Answer {i}',
-        'content': f'Long lorem ipsum {i}'
-    } for i in range(40)
-]
-
-TAG = [
-    {
-        'id': i,
-        'name': f'Tag {i}',
-    } for i in range(10)
-]
+from app.models import Question
 
 
 def paginate(objects_list, request, per_page=5):
@@ -58,6 +35,10 @@ def ask(request):
 
 def signup(request):
     return render(request, 'signup.html')
+
+
+def settings(request):
+    return render(request, 'settings.html')
 
 
 def hot(request):
