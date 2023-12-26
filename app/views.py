@@ -3,6 +3,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
 
 from app.models import Question
+from django.db.models import Sum
 
 
 def paginate(objects_list, request, per_page=5):
@@ -19,8 +20,12 @@ def paginate(objects_list, request, per_page=5):
 
 # Create your views here.
 def index(request):
+    # questions = Question.objects.all()
+    questions = Question.objects.annotate(totaly_votes=Sum('vote__value'))
+
     context = {
-        'page_obj': paginate(Question.objects.all(), request),
+        'page_obj': paginate(questions, request),
+        # 'question_votes': {question.id: Question.objects.count_total_votes(question.id) for question in questions},
     }
     return render(request, 'index.html', context)
 
@@ -42,21 +47,26 @@ def settings(request):
 
 
 def hot(request):
+    # questions = Question.objects.all()
+    questions = Question.objects.get_hot_questions().annotate(totaly_votes=Sum('vote__value'))
+
     context = {
-        'page_obj': paginate(Question.objects.get_hot_questions(), request),
+        'page_obj': paginate(questions, request),
     }
     return render(request, 'hot.html', context)
 
 
 def top(request):
+    questions = Question.objects.get_top_questions().annotate(totaly_votes=Sum('vote__value'))
+
     context = {
-        'page_obj': paginate(Question.objects.get_top_questions(), request, 10),
+        'page_obj': paginate(questions, request, 10),
     }
     return render(request, 'top.html', context)
 
 
 def tag(request, tag_name):
-    questions = Question.objects.tagged(tag_name)
+    questions = Question.objects.tagged(tag_name).annotate(totaly_votes=Sum('vote__value'))
     context = {
         'tag': tag_name,
         'page_obj': paginate(questions, request),
@@ -67,7 +77,7 @@ def tag(request, tag_name):
 def question(request, question_id):
     if question_id > len(Question.objects.all()):
         raise Http404("Question does not exist")
-    my_question = Question.objects.all()[question_id - 1]
+    my_question = Question.objects.filter(pk=question_id).annotate(totaly_votes=Sum('vote__value')).first()
     context = {
         'question': my_question,
         'page_obj': paginate(my_question.answers.all(), request),

@@ -9,13 +9,23 @@ class QuestionManager(models.Manager):
 
     def get_hot_questions(self):
         today = date.today()
-        first_day = date(today.year, today.month, 1)
-        last_day = date(today.year, today.month + 1, 1) - timedelta(days=1)
+        # first_day = date(today.year, today.month - 1, 1)
+        # last_day = date(today.year, today.month, 1)
+        first_day = today - timedelta(days=50)
+        last_day = today
 
         return self.filter(created_at__range=[first_day, last_day])
 
     def get_top_questions(self, count=10):
         return self.order_by('-total_votes')[:count]
+
+    # def count_total_votes(self, question_id):
+    #     Vote.objects.filter(question_id=question_id).aggregate(models.Sum('value'))['value__sum'] or 0
+
+
+# class AnswerManager(models.Manager):
+#     def count_total_votes(self, answer_id):
+#         Vote.objects.filter(answer_id=answer_id).aggregate(models.Sum('value'))['value__sum'] or 0
 
 
 class Profile(models.Model):
@@ -41,8 +51,8 @@ class Question(models.Model):
     title = models.CharField(max_length=256)
     content = models.TextField()
     tags = models.ManyToManyField('Tag', related_name='questions')
-    created_at = models.DateField(default=date(2003, 12, 1))
-    total_votes = models.IntegerField(default=0)
+    created_at = models.DateField(default=date.today())
+    # total_votes = models.IntegerField(default=0)
 
     objects = QuestionManager()
 
@@ -54,14 +64,16 @@ class Answer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey('Question', on_delete=models.CASCADE, related_name='answers')
     content = models.TextField()
-    created_at = models.DateField(default=date(2003, 12, 1))
-    total_votes = models.IntegerField(default=0)
+    created_at = models.DateField(default=date.today())
+    # total_votes = models.IntegerField(default=0)
 
     STATUS_CHOICES = [
         ('c', 'correct'),
         ('i', 'incorrect'),
     ]
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='i')
+
+    # objects = AnswerManager()
 
     def __str__(self):
         return f"Answer to '{self.question.title}' from '{self.user.username}'"
