@@ -9,8 +9,11 @@ from django.views.decorators.csrf import csrf_protect
 from django.urls import reverse
 from django.db.models import Sum
 
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+
 from app.forms import LoginForm, RegisterForm, SettingsForm
-from app.models import Question, Profile
+from app.models import Question, Profile, Vote
 
 
 def paginate(objects_list, request, per_page=5):
@@ -146,8 +149,22 @@ def question(request, question_id):
     if question_id > len(Question.objects.all()):
         raise Http404("Question does not exist")
     my_question = Question.objects.filter(pk=question_id).annotate(totaly_votes=Sum('vote__value')).first()
+    answers = my_question.answers.all().annotate(totaly_votes=Sum('vote__value'))
     context = {
         'question': my_question,
-        'page_obj': paginate(my_question.answers.all(), request),
+        'page_obj': paginate(answers, request),
     }
     return render(request, 'question.html', context)
+
+
+@csrf_protect
+@login_required()
+def question_upvote(request):
+    question_id = request.POST.get('question_id')
+    my_question = get_object_or_404(Question, pk=question_id)
+    Vote.objects.create_or_update_vote(user=request.user, question=my_question, value=1)
+    count = Vote.objects.get_question_score(my_question)
+
+    return JsonResponse({
+        'count': count
+    })

@@ -30,6 +30,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('settings/', views.settings, name='settings'),
     path('ask/', views.ask, name='ask'),
+    path('questionupvote/', views.question_upvote, name='questionupvote'),
     path('admin/', admin.site.urls),
 ]
 
