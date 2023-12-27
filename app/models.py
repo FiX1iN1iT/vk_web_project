@@ -29,8 +29,8 @@ class QuestionManager(models.Manager):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # photo = models.ImageField(upload_to="avatars/", null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
+    avatar = models.ImageField(upload_to="avatars/", null=True, blank=True, default="avatar.jpeg")
 
     def __str__(self):
         return self.user.username

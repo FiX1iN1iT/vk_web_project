@@ -1,6 +1,7 @@
 from django.contrib import auth
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.forms import model_to_dict
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
@@ -8,8 +9,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.urls import reverse
 from django.db.models import Sum
 
-from app.forms import LoginForm, RegisterForm
-from app.models import Question
+from app.forms import LoginForm, RegisterForm, SettingsForm
+from app.models import Question, Profile
 
 
 def paginate(objects_list, request, per_page=5):
@@ -78,6 +79,8 @@ def signup(request):
             user = register_form.save(commit=False)
             user.username = user.username.lower()
             user.save()
+            profile = Profile(user=user)
+            profile.save()
             print(user)
             if user is not None:
                 # login(request, user)
@@ -88,9 +91,23 @@ def signup(request):
     return render(request, 'signup.html', context={'form': register_form})
 
 
+@csrf_protect
 @login_required(login_url='login/', redirect_field_name='continue')
 def settings(request):
-    return render(request, 'settings.html')
+    if request.method == 'GET':
+        settings_form = SettingsForm(initial=model_to_dict(request.user))
+        return render(request, 'settings.html', context={'form': settings_form})
+
+    elif request.method == 'POST':
+        settings_form = SettingsForm(request.POST, request.FILES, instance=request.user)
+
+        if settings_form.is_valid():
+            settings_form.save()
+
+    else:
+        settings_form = SettingsForm()
+
+    return render(request, 'settings.html', context={'form': settings_form})
 
 
 @login_required(login_url='login/', redirect_field_name='continue')
