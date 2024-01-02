@@ -13,7 +13,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
 from app.forms import LoginForm, RegisterForm, SettingsForm
-from app.models import Question, Profile, Vote
+from app.models import Question, Profile, QuestionVote, AnswerVote
 
 
 def paginate(objects_list, request, per_page=5):
@@ -31,7 +31,7 @@ def paginate(objects_list, request, per_page=5):
 @login_required(login_url='login/', redirect_field_name='continue')
 def index(request):
     # questions = Question.objects.all()
-    questions = Question.objects.annotate(totaly_votes=Sum('vote__value'))
+    questions = Question.objects.annotate(totaly_votes=Sum('questionvote__value'))
 
     context = {
         'page_obj': paginate(questions, request),
@@ -116,7 +116,7 @@ def settings(request):
 @login_required(login_url='login/', redirect_field_name='continue')
 def hot(request):
     # questions = Question.objects.all()
-    questions = Question.objects.get_hot_questions().annotate(totaly_votes=Sum('vote__value'))
+    questions = Question.objects.get_hot_questions().annotate(totaly_votes=Sum('questionvote__value'))
 
     context = {
         'page_obj': paginate(questions, request),
@@ -126,7 +126,7 @@ def hot(request):
 
 @login_required(login_url='login/', redirect_field_name='continue')
 def top(request):
-    questions = Question.objects.get_top_questions().annotate(totaly_votes=Sum('vote__value'))
+    questions = Question.objects.get_top_questions().annotate(totaly_votes=Sum('questionvote__value'))
 
     context = {
         'page_obj': paginate(questions, request, 10),
@@ -136,7 +136,7 @@ def top(request):
 
 @login_required(login_url='login/', redirect_field_name='continue')
 def tag(request, tag_name):
-    questions = Question.objects.tagged(tag_name).annotate(totaly_votes=Sum('vote__value'))
+    questions = Question.objects.tagged(tag_name).annotate(totaly_votes=Sum('questionvote__value'))
     context = {
         'tag': tag_name,
         'page_obj': paginate(questions, request),
@@ -148,8 +148,8 @@ def tag(request, tag_name):
 def question(request, question_id):
     if question_id > len(Question.objects.all()):
         raise Http404("Question does not exist")
-    my_question = Question.objects.filter(pk=question_id).annotate(totaly_votes=Sum('vote__value')).first()
-    answers = my_question.answers.all().annotate(totaly_votes=Sum('vote__value'))
+    my_question = Question.objects.filter(pk=question_id).annotate(totaly_votes=Sum('questionvote__value')).first()
+    answers = my_question.answers.all().annotate(totaly_votes=Sum('answervote__value'))
     context = {
         'question': my_question,
         'page_obj': paginate(answers, request),
@@ -162,8 +162,8 @@ def question(request, question_id):
 def question_upvote(request):
     question_id = request.POST.get('question_id')
     my_question = get_object_or_404(Question, pk=question_id)
-    Vote.objects.create_or_update_vote(user=request.user, question=my_question, value=1)
-    count = Vote.objects.get_question_score(my_question)
+    QuestionVote.objects.toggle(user=request.user, question=my_question, value=1)
+    count = QuestionVote.objects.get_question_score(my_question)
 
     return JsonResponse({
         'count': count
